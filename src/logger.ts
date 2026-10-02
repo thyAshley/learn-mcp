@@ -1,4 +1,4 @@
-import pino from 'pino';
+import pino from "pino";
 
 /**
  * The logging surface the app depends on — the subset of pino's API actually
@@ -25,18 +25,36 @@ export const silentLogger: ActionLogger = {
  * JSON in production so a log collector can parse it.
  */
 export function createLogger(): ActionLogger {
-  const level = process.env['LOG_LEVEL'] ?? 'info';
-  const pretty = process.env['NODE_ENV'] !== 'production';
+  const level = process.env["LOG_LEVEL"] ?? "info";
+  const pretty = process.env["NODE_ENV"] !== "production";
 
   return pino({
     level,
     ...(pretty
       ? {
           transport: {
-            target: 'pino-pretty',
-            options: { colorize: true, translateTime: 'HH:MM:ss', ignore: 'pid,hostname' },
+            target: "pino-pretty",
+            options: {
+              colorize: true,
+              translateTime: "HH:MM:ss",
+              ignore: "pid,hostname",
+            },
           },
         }
       : {}),
   });
+}
+
+/**
+ * Builds a logger that writes to stderr instead of stdout.
+ *
+ * Required for the MCP server: stdout *is* the JSON-RPC channel there, so a
+ * single log line written to it corrupts the protocol and the client
+ * disconnects. MCP clients treat stderr as free-form log output.
+ */
+export function createStderrLogger(): ActionLogger {
+  const level = process.env["LOG_LEVEL"] ?? "info";
+
+  // destination(2) is file descriptor 2 — stderr.
+  return pino({ level }, pino.destination(2));
 }
