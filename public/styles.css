@@ -1,0 +1,244 @@
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --border: #e4e1dc;
+  --text: #1c1b19;
+  --muted: #6f6a63;
+  --accent: #2f6f4f;
+  --accent-text: #ffffff;
+  --danger: #a4342a;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgb(28 27 25 / 6%), 0 4px 12px rgb(28 27 25 / 4%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #18171a;
+    --surface: #211f23;
+    --border: #35323a;
+    --text: #f2f0ee;
+    --muted: #a39d98;
+    --accent: #6cc295;
+    --accent-text: #10251a;
+    --danger: #e8897e;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 14px rgb(0 0 0 / 20%);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* A `display` rule on an element otherwise beats the hidden attribute's own
+   `display: none`, so restate it with enough weight to win. */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 38rem;
+  margin: 0 auto;
+}
+
+.app__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+}
+
+.app__count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Error banner ----------------------------------------------------------- */
+
+.banner {
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, var(--border));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--danger) 10%, var(--surface));
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+/* Composer --------------------------------------------------------------- */
+
+.composer {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.composer__title,
+.composer__body {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.composer__title {
+  font-weight: 600;
+}
+
+.composer__body {
+  resize: vertical;
+  min-height: 3.2rem;
+}
+
+.composer__title:focus-visible,
+.composer__body:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.composer__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.button {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.button:hover {
+  border-color: var(--muted);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.button--primary {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.button--primary:hover {
+  background: color-mix(in srgb, var(--accent) 88%, black);
+}
+
+.button--icon {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.button--danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Notes ------------------------------------------------------------------ */
+
+.notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.note {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.note__view {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.note__text {
+  min-width: 0;
+}
+
+.note__title {
+  margin: 0 0 0.2rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.note__body {
+  margin: 0;
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.note__body:empty {
+  display: none;
+}
+
+.note__meta {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.note__actions {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.note__edit {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.empty {
+  margin: 2rem 0 0;
+  color: var(--muted);
+  text-align: center;
+}

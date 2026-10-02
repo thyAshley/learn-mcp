@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1>Notes</h1>
+        <p class="app__count" id="count" aria-live="polite"></p>
+      </header>
+
+      <div class="banner" id="banner" role="alert" hidden></div>
+
+      <form class="composer" id="composer">
+        <input
+          class="composer__title"
+          id="title"
+          name="title"
+          type="text"
+          placeholder="Title"
+          autocomplete="off"
+          required
+          maxlength="200"
+        />
+        <textarea
+          class="composer__body"
+          id="body"
+          name="body"
+          placeholder="Write something…"
+          rows="3"
+        ></textarea>
+        <div class="composer__actions">
+          <button class="button button--primary" type="submit">Add note</button>
+        </div>
+      </form>
+
+      <ul class="notes" id="notes"></ul>
+
+      <p class="empty" id="empty" hidden>No notes yet. Add one above.</p>
+    </main>
+
+    <!-- Cloned by app.js for each note. -->
+    <template id="note-template">
+      <li class="note">
+        <div class="note__view">
+          <div class="note__text">
+            <h2 class="note__title"></h2>
+            <p class="note__body"></p>
+            <p class="note__meta"></p>
+          </div>
+          <div class="note__actions">
+            <button class="button button--icon" data-action="edit" type="button">
+              Edit
+            </button>
+            <button
+              class="button button--icon button--danger"
+              data-action="delete"
+              type="button"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+
+        <form class="note__edit" hidden>
+          <input
+            class="composer__title"
+            data-field="title"
+            type="text"
+            required
+            maxlength="200"
+          />
+          <textarea class="composer__body" data-field="body" rows="3"></textarea>
+          <div class="composer__actions">
+            <button class="button button--primary" type="submit">Save</button>
+            <button class="button" data-action="cancel" type="button">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </li>
+    </template>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
