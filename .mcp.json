@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "notes": {
+      "command": "node",
+      "args": ["/Users/ashley/Desktop/Projects/learn-mcp/dist/mcp-main.js"],
+      "env": {
+        "NOTES_FILE": "/Users/ashley/Desktop/Projects/learn-mcp/notes.json"
+      }
+    }
+  }
+}
